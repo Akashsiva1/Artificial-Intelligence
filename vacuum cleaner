@@ -1,0 +1,37 @@
+class VacuumCleaner:
+    def __init__(self, location='A'):  # Corrected "__init__" method
+        self.location = location
+        self.clean = False
+
+    def move(self, location):
+        self.location = location
+
+    def clean_floor(self):
+        self.clean = True
+
+    def is_dirty(self):
+        return not self.clean
+
+
+def main():
+    locations = ['A', 'B']
+    dirty = {'A': True, 'B': False}
+
+    vacuum = VacuumCleaner()
+
+    while any(dirty.values()):
+        print("Current Location:", vacuum.location)
+        if vacuum.is_dirty():
+            print("Cleaning...")
+            vacuum.clean_floor()
+            dirty[vacuum.location] = False
+            print("Floor cleaned at", vacuum.location)
+
+        next_location = locations[(locations.index(vacuum.location) + 1) % len(locations)]
+        vacuum.move(next_location)
+
+    print("All floors cleaned!")
+
+
+if __name__ == "__main__":
+    main()
